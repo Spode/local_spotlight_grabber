@@ -1,0 +1,7 @@
+G:\projects\csharp\spotlightgrabber\spotlightgrabber\bin\Release\spotlightgrabber.exe.config
+G:\projects\csharp\spotlightgrabber\spotlightgrabber\bin\Release\spotlightgrabber.exe
+G:\projects\csharp\spotlightgrabber\spotlightgrabber\bin\Release\spotlightgrabber.pdb
+G:\projects\csharp\spotlightgrabber\spotlightgrabber\obj\Release\spotlightgrabber.csproj.CoreCompileInputs.cache
+G:\projects\csharp\spotlightgrabber\spotlightgrabber\obj\Release\spotlightgrabber.exe
+G:\projects\csharp\spotlightgrabber\spotlightgrabber\obj\Release\spotlightgrabber.pdb
+G:\projects\csharp\spotlightgrabber\spotlightgrabber\obj\Release\spotlightgrabber.csprojResolveAssemblyReference.cache
