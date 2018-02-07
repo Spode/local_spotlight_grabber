@@ -18,11 +18,6 @@ namespace spotlightgrabber
 
             string[] fileEntries = Directory.GetFiles(Environment.ExpandEnvironmentVariables(@"%localappdata%\Packages\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\LocalState\Assets"));
 
-            if (!Directory.Exists(root))
-            {
-                Directory.CreateDirectory(root);
-            }
-
             foreach (string file in fileEntries)
             {
                 Bitmap img = new Bitmap(file);
@@ -33,8 +28,13 @@ namespace spotlightgrabber
 
                     if (!File.Exists(filePath))
                     {
+                        if (!Directory.Exists(root) && !foundImg)
+                        {
+                            Directory.CreateDirectory(root);
+                        }
+
                         File.Copy(file, filePath);
-                        Console.WriteLine("Found landscape img " + Path.GetFileName(file) + ". Saving.");
+                        Console.WriteLine("Found landscape img " + Path.GetFileName(file) + ". Saving to " + filePath);
                         foundImg = true;
                     }                    
                 }
@@ -59,10 +59,9 @@ namespace spotlightgrabber
             string rootPathSubstr = "root=";
             string rootPath = rootLine.Substring(rootPathSubstr.IndexOf(rootPathSubstr) + rootPathSubstr.Length);
 
-            if (rootPath == "%USERPROFILE%\\Desktop\\Spotlight Images")
+            if (rootPath == @"%USERPROFILE%\Desktop\Spotlight Images")
             {
-                rootPath = Environment.ExpandEnvironmentVariables(rootPath);
-                Console.WriteLine(rootPath);
+                rootPath = Environment.ExpandEnvironmentVariables(rootPath);                
             }
 
             return rootPath;
