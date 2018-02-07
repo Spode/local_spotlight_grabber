@@ -12,9 +12,8 @@ namespace spotlightgrabber
     {
         static void Main(string[] args)
         {
-            
             string root = GetRootPath();
-            bool foundImg = false;
+            int imgCount = 0;
 
             string[] fileEntries = Directory.GetFiles(Environment.ExpandEnvironmentVariables(@"%localappdata%\Packages\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\LocalState\Assets"));
 
@@ -23,36 +22,26 @@ namespace spotlightgrabber
                 Bitmap img = new Bitmap(file);
 
                 if (img.Width == 1920)
-                {                                                            
-                    string filePath = Path.Combine(root,Path.GetFileName(file)) + ".jpg";
+                {
+                    string filePath = Path.Combine(root, Path.GetFileName(file)) + ".jpg";
 
                     if (!File.Exists(filePath))
                     {
-                        if (!Directory.Exists(root) && !foundImg)
+                        if (!Directory.Exists(root) && imgCount == 0)
                         {
                             Directory.CreateDirectory(root);
                         }
 
                         File.Copy(file, filePath);
-                        Console.WriteLine("Found landscape img " + Path.GetFileName(file) + ". Saving to " + filePath);
-                        foundImg = true;
-                    }                    
+                        imgCount++;
+                    }
                 }
             }
-
-            if (foundImg)
-            {
-                Console.WriteLine("Found images! Press any key to exit program.");
-            } else
-            {
-                Console.WriteLine("Did not find any new images! Press any key to exit program.");
-            }
-
-            
+            Console.WriteLine("Found {0} images! Press any key to exit program.", imgCount);
             Console.ReadKey();
         }
         private static string GetRootPath()
-        {           
+        {
             string[] config = File.ReadAllLines("config.txt");
             string rootLine = config[0];
 
@@ -61,7 +50,7 @@ namespace spotlightgrabber
 
             if (rootPath == @"%USERPROFILE%\Desktop\Spotlight Images")
             {
-                rootPath = Environment.ExpandEnvironmentVariables(rootPath);                
+                rootPath = Environment.ExpandEnvironmentVariables(rootPath);
             }
 
             return rootPath;
