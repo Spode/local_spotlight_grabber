@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -12,7 +13,25 @@ namespace spotlightgrabber
     {
         static void Main(string[] args)
         {
-            string root = GetRootPath();
+            bool herp = false;
+
+            string root = "";
+
+            if (args.Length == 0)
+            {
+                root = GetRootPath();
+            } else
+            {
+                herp = true;
+                if (Directory.Exists(args[0]))
+                {
+                    root = args[0];
+                }
+            }
+
+            Console.WriteLine("root is {0}", root);
+            
+
             int imgCount = 0;
 
             string[] fileEntries = Directory.GetFiles(Environment.ExpandEnvironmentVariables(@"%localappdata%\Packages\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\LocalState\Assets"));
@@ -38,7 +57,12 @@ namespace spotlightgrabber
                 }
             }
             Console.WriteLine("Found {0} images! Press any key to exit program.", imgCount);
-            Console.ReadKey();
+
+            if (!herp)
+            {
+                Console.ReadKey();
+                Process.Start(root);
+            }
         }
         private static string GetRootPath()
         {
